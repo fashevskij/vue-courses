@@ -27,9 +27,9 @@
 				<input type="text" v-model="FirstName">
 				<input type="text" v-model="LastName">
 				<h1>{{FirstName + " " + LastName}}</h1>
-				<h1>{{fullName()}}</h1>
+				<h1>{{fullName}}</h1>
 				<h1>{{fullNameS}}</h1>
-				<button v-on:click="fullNameS" class="btn btn-dark">ToggleName2</button>
+				<button  class="btn btn-dark">ToggleName2</button>
 		</div>
 	</div>
 	</div>
@@ -40,22 +40,33 @@
 				name: 'anna',
 				LastName: "",
 				FirstName: "",
+				fullName: "",
 				showName: true
 			},
+			/*
 			computed: {//вычисляемые своиства на основе других
 				fullNameS() {
 					console.log("change computed");
 					return this.FirstName+ " "+ this.LastName;
+				}
+			},*/
+			watch:{//прослушиватель следить за изменением за которыми нужно следить
+				FirstName(){
+					this.fullName = this.FirstName+ " "+ this.LastName;
+				},
+				LastName(){
+					this.fullName = this.FirstName+ " "+ this.LastName;
 				}
 			},
 			methods: {//методы этого обьекта
 				change() {
 					this.showName = this.showName ? false : true;
 				},
+				/*
 				fullName() {
 					console.log("change methods");
 					return this.FirstName+ " "+ this.LastName;
-				}
+				}*/
 			}
 				
 		})
