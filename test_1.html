@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="sample">
+				<div class="col-sm-8" v-if="show">
+					<form action="">
+						<br>
+						<label class="col-sm-2 col-form-label">FirstName</label>
+						<input type="text" class="form-control" v-model="FirstName">
+						<br>
+						<label  class="col-sm-2 col-form-label">LastName</label>
+						<input type="text" class="form-control" v-model="LastName">
+						<br>
+						<label  class="col-sm-2 col-form-label">Email</label>
+						<input type="text" class="form-control" v-model="Email">
+						<br>
+						<label class="col-sm-2 col-form-label">Phone</label>
+						<input type="text" class="form-control" v-model="Phone">
+						<br>
+						<button type="button" class="btn btn-primary mb-3" @click="addInp"> + friend</button>
+						<br>
+						<div v-for="(friend,index) in Friends">
+						<label class="col-sm-2 col-form-label">friend {{index + 1}}</label>
+						
+						<input type="text" v-model="Friends[index]">
+						<button type="button"
+							class="btn btn-primary" @click="dell(index)"> dellete friend</button>
+						</div>
+						<br>
+						<button type="submit" class="btn btn-primary mb-3" @click ="show=false">Submit</button>
+				</form>
+				</div>
+				<div class="col-sm-10">
+					<table class="table" v-if="!show">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">FirstName</th>
+								<th scope="col">LastName</th>
+								<th scope="col">Email</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Friend</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">1</th>
+								<td>{{FirstName}}</td>
+								<td>{{LastName}}</td>
+								<td>{{Email}}</td>
+								<td>{{Phone}}</td>
+							</tr>
+							<tr v-for="Friend in Friends">
+								<th scope="row">Friend</th>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>{{Friend}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		let sample = new Vue({
+			el: '.sample', //выбор елемента
+			data: { //храним входные данные этом обьекте
+				LastName: "",
+				FirstName: "",
+				Email: "",
+				Phone: "",
+				show: true,
+				Friends:[],
+			},
+			methods: {
+				addInp(){
+					this.Friends.push('');
+				},
+				dell(index){
+					this.Friends.splice(index,1);
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>
