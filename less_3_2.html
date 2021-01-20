@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<style>
+		
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="sample">
+				<div class="col-sm-8">
+					<br>
+					<div class="alert" :style="[minHeight, propuerties]">
+						text 
+					</div>
+					<br>
+				<table class="table table-bordered"
+				v-for="(value,name) in propuerties">
+					<tr>
+						<td>{{name}}</td>
+						<td>
+							<input type="text" v-model="propuerties[name]">
+						</td>
+					</tr>
+				
+				</table>
+				<button class="btn btn-dark" @click="height += 40">+height</button>
+			</div>
+		</div>
+	</div>
+	<script>
+	
+		let sample = new Vue({
+			el: '.sample',
+			data: {
+				propuerties: {
+					color: 'inherit',
+					backgroundColor: 'red',
+					
+				},
+				height: 0
+			},
+			computed: {
+				minHeight() {
+					return {
+						minHeight: this.height + 'px'
+					} 
+				}
+			}
+
+		});
+	</script>
+
+</body>
+
+</html>
