@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<style>
+		.my-info{
+			font-size: 40px;
+		}
+		.my-warning{
+			font-size: 20px;
+		}
+		.table-some {
+			color:rgb(43, 226, 58);
+			background: cadetblue;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="sample">
+				<div class="col-sm-8">
+					<br>
+					<div class="alert" :class="divClassName">
+						{{divClass}}
+					</div>
+					<br>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" value="info" v-model="divClass">
+						<label class="form-check-label" >
+							info
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" value="warning" v-model="divClass">
+						<label class="form-check-label" >
+							warning
+						</label>
+					</div>
+				</div>
+				<br>
+				<br>
+				<div class="form-check" v-for="(value,name) in flags">
+					<input class="form-check-input" type="checkbox" value="warning" v-model="flags[name]">
+					<label class="form-check-label">
+						{{name}}
+					</label>
+				</div>
+				<br>
+				<table class="table" :class="flags">
+					<tr>
+						<td>title</td>
+						<td>some</td>
+						<td>nz</td>
+					</tr>
+					<tr>
+						<td>title</td>
+						<td>some</td>
+						<td>nz</td>
+					</tr>
+					<tr>
+						<td>title</td>
+						<td>some</td>
+						<td>nz</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script>
+		/*атрибут
+		:class="string",
+		:class="array",
+		:class="obj",
+		:class="[str, obj]"
+		*/
+		let sample = new Vue({
+			el: '.sample',
+			data: {
+				divClass: '',
+				flags:{
+					'table-bordered': true,
+					'table-hover': false,
+					'table-some': false
+				}
+			},
+			computed: {
+				divClassName() {//передача массива классов через :class
+					return ['alert-'+ this.divClass,
+							'my-'+ this.divClass];
+				}
+			}
+
+		});
+	</script>
+
+</body>
+
+</html>
