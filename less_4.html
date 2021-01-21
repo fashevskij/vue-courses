@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="sample">
+				<div class="col-sm-8">
+				<form>
+					<br>
+					<h2>{{clicks}}</h2>
+					<br>
+					<button class="btn btn-dark" v-ondelay:click.prevent.500="onClick">send</button>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+
+		Vue.directive('ondelay',{
+			bind(el, options){
+				let timer;
+
+				let timeout = 0;
+				for(let name in options.modifiers){
+					if(!isNaN(+name)){
+						timeout= parseInt(name);
+					}
+				}
+				console.log(timeout);
+				let callback = (e) => {
+					if(timer !== undefined){
+						clearInterval(timer);
+					}
+					if(options.modifiers.prevent){
+						e.preventDefault();
+					}
+					timer = setTimeout(() => {
+						options.value.call(this, e);
+					}, timeout);
+					
+				};
+				el.addEventListener(options.arg, callback)
+			}
+		});
+
+		new Vue ({
+			el:'.sample',
+			data: {
+				clicks: 0
+			},
+			methods: {
+				onClick() {
+					this.clicks++;
+				}
+			}
+		})
+	</script>
+</body>
+</html>
