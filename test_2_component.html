@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="sample">
+				<div class="col-sm-8">
+					<form v-if="show"v-on:submit.prevent>
+						<br>
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="width" aria-valuemin="0" :style="styleProg"
+								aria-valuemax="100"></div>
+						</div>
+						<app-test v-for="(item,index) in info" :key="index" :name="item.name" :value="item.value"
+							:pattern='item.pattern' :valid='controls[index].valid'
+							:activFlags="controls[index].activFlags" @changevalue="givs($event, index)">
+
+						</app-test>
+						<br>
+						<button :disabled="progress < info.length" type="submit" class="btn btn-dark" @click="change">Submit</button>
+					</form>
+				</div>
+				<div class="col-sm-10">
+					<table class="table" v-if="!show">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">FirstName</th>
+								<th scope="col">LastName</th>
+								<th scope="col">Email</th>
+								<th scope="col">Phone</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">1</th>
+								<td v-for="item in info">{{item.value}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		Vue.component('app-test', {
+			props: ['name', 'value', 'pattern', 'valid', 'activflags'],
+			template: `
+					<div class="form-group">
+					<label class="col-sm-2 col-form-label">{{name}}
+					<i class="" v-if="activflags"
+					:class="valid ? 
+					'bi bi-check-circle-fill' : 
+					'bi bi-exclamation-circle-fill'"></i>
+					</label>
+					<input type="text" class="form-control" @input='change'>
+					</div>
+			`,
+			methods: {
+				change(e) {
+					/*console.log(e);
+					console.log(e.target);
+					console.log(e.target.value);
+					console.log(e.data);
+					console.log(this);*/
+					this.$emit('changevalue', e.target
+						.value); //запускаю событие с помощью емит с названием changeValue и аргументом e.target.value
+
+				},
+			}
+
+		});
+		let sample = new Vue({
+			el: '.sample', //выбор елемента
+			data: { //храним входные данные этом обьекте
+				show: true,
+				props: ['value'],
+				info: [{
+						name: 'FirstName',
+						value: '',
+						pattern: /^[a-zA-Z ]{2,30}$/,
+
+					},
+					{
+						name: 'LastName',
+						value: '',
+						pattern: /^[a-zA-Z ]{2,30}$/,
+
+					},
+					{
+						name: 'Email',
+						value: '',
+						pattern: /.+/,
+
+					},
+					{
+						name: 'Phone',
+						value: '',
+						pattern: /^[0-9]{7,14}$/,
+
+					},
+				],
+				controls: []
+
+			},
+			methods: {
+				givs(value, index) {
+					let control = this.controls[index];
+
+					let data = this.info[index];
+					data.value = value;
+					control.valid = data.pattern.test(value); //применяем валидацию поля
+					control.activFlags = true;
+				},
+				change() {
+				this.show = false;
+				}
+			},
+			computed: {
+				progress() {
+					let done = 0;
+					for (let i = 0; i < this.controls.length; i++) {
+						if (this.controls[i].valid) {
+							done++;
+						}
+					}
+					return done;
+				},
+				styleProg() {
+					return {
+						width: (100 / this.info.length * this.progress) + '%'
+					}
+				}
+			},
+			beforeMount() {
+				for (let i = 0; i < this.info.length; i++) {
+					this.controls.push({
+						valid: false,
+						activFlags: false
+					})
+				}
+			},
+
+		});
+	</script>
+</body>
+
+</html>
