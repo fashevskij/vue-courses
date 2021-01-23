@@ -1,0 +1,55 @@
+
+<body>
+	<div class="sample">
+		<app-some
+		:a="11"
+		
+		>
+			
+		</app-some>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+	Vue.component('appSome',{
+		props: {
+			//a: null //устраивает любой тип данных
+			//a: Number //проверка а на число
+			//a: [ Number, String ] //проверка а на число и строку
+			/*a: {//заставляем передать переменную а, с числовым типом
+				type: Number,
+				required: true
+			}
+			a: {//переменная а с числовым типом, и если она не передана будет 100 
+				type: Number,
+				default: 100
+			}
+			a: {//тоже что выше только для работы с обьектами
+				type: Number,
+				default() {
+					return {
+						a:2
+					}
+				}
+			}*/
+			a: {//проверка валидности данных
+				validator(val){
+					return val >= 1 && val <= 10;
+				}
+			}
+
+		},
+		template:`
+		<div>
+		{{a}}
+		</div>
+		`
+	});
+
+	new Vue({
+		el:'.sample',
+		data: {
+			d:4
+		}
+	});
+</script>

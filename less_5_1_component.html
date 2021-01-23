@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+	<div class="sample">
+		<div class="container">
+		<hr>
+		<button class="btn btn-dark" @click="ul = !ul">change</button>
+		<hr>
+		<app-ul :items="list" v-if="ul"></app-ul>
+		<app-ol :items="list" v-else></app-ol>
+		<component :is="listName" :items="list"></component>
+	</div>
+	</div>
+</body>
+<script>
+	Vue.component('appUl', {
+		props: {
+			items: null
+		},
+		template: `
+			<ul>
+				<hr>
+					<li v-for="item in items">{{item}}</li>
+				<hr>
+			</ul>
+		`
+	});
+	Vue.component('appOl', {
+		props: {
+			items: null
+		},
+		template: `
+			<ol>
+				<hr>
+					<li v-for="item in items">{{item}}</li>
+				<hr>
+			</ol>
+			`
+	});
+
+	new Vue({
+		el: '.sample',
+		data: {
+			list: [
+				'some',
+				'items',
+				'anna',
+				'list'
+			],
+			ul: true
+		},
+		computed: {
+			listName() {
+				return this.ul ? 'appUl' : 'appOl'
+			}
+		}
+
+	});
+</script>
