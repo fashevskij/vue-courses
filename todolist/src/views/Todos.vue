@@ -3,17 +3,20 @@
     <h2>todo app</h2>
     <router-link to="/"><button>Home</button></router-link>
     <AddTodo @add-todo="addTodo" />
-	<select v-model="filter">
-		<option value="all">all</option>
-		<option value="completed">completed</option>
-		<option value="not-completed">not-completed</option>
-	</select>
+    <label>
+      <select v-model="filter">
+        <option value="all">all</option>
+        <option value="completed">completed</option>
+        <option value="not-completed">not-completed</option>
+      </select>
+    </label>
     <hr />
 	<Loader v-if="loading"/>
     <TodoList v-else-if="filterTodos.length" :todos="filterTodos" @remove-todo="rem" />
     <p v-else>No todos =(</p>
   </div>
 </template>
+
 
 <script>
 //:todos="todos" передаем доступ на чтение данных из этого компонента в TodoList
