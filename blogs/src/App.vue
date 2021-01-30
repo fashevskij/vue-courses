@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-  <div class="post" v-for="post in allPosts" :key="post.id">
+    <PostForm/>
+    <h2>количество постов на странице {{postsCount}}</h2>
+    <hr>
+  <div class="post" v-for="post in validPosts" :key="post.id">
     <h2>{{post.title}}</h2>
     <p>{{post.body}}</p>
   </div>
@@ -13,11 +16,12 @@
 * нужно создать асинхронный хук mounted c и с помощью функции fetch передаем урл
 * */
 
-import {mapGetters} from "vuex";//импортируем что то из объекта getters
+import {mapGetters, mapActions} from "vuex";//импортируем что то из объекта getters
+import PostForm from "@/components/PostForm"
 export default {
   name: 'App',
-  computed:...mapGetters(['allPosts']),
-
+  computed:mapGetters(['validPosts', 'postsCount']),//validPosts валидация примененная к allPosts по сути тот же массив
+  methods: mapActions(['fetchPost']),
 
     /*
     allPosts() {
@@ -25,9 +29,11 @@ export default {
     }*/
 
   async mounted() {
-
+    //this.$store.dispatch('fetchPost')//вызываем action с пмощью dispatch! обращаемся на прямую
+    //если есть импорт актион то можно вызвть  fetchPost ние=же
+    this.fetchPost(5);
   },
-  components: {}
+  components: {PostForm}
 }
 </script>
 
