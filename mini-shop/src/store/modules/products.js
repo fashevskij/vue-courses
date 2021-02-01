@@ -15,7 +15,9 @@ export default {
                 .then(response=> response.json())
                 .then(data=>{
                     store.commit('loadItems', data)
-                })
+                }).catch(err=>{
+                    console.log(err)
+            })
         }
     },
     getters: {
