@@ -40,7 +40,7 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
-    showRes(state){
+    showRes(state) {
       state.show = false
     },
     changeValue(state, value) {
@@ -56,4 +56,5 @@ export const store = new Vuex.Store({
       this.done = done;
     }
   }
+
 });

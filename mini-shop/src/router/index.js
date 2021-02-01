@@ -9,6 +9,7 @@ import Product from "@/components/Product";
 import Cart from "@/components/Cart";
 import E404 from "@/components/E404";
 import store from "@/store";
+import Checkout from "@/components/Checkout";
 
 const routes = [
   {
@@ -32,6 +33,10 @@ const routes = [
   {//создаем путь для страницы самого выбраного товара где :id это что угодно
     path: '/products/:id',//
     component: Product//подклчаем компонент
+  },
+  {
+    path: '/checkout/',
+    component: Checkout
   },
   {
     path: '*',//если роутер ничего не словил
