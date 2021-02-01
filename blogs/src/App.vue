@@ -31,7 +31,7 @@ export default {
   async mounted() {
     //this.$store.dispatch('fetchPost')//вызываем action с пмощью dispatch! обращаемся на прямую
     //если есть импорт актион то можно вызвть  fetchPost ние=же
-    this.fetchPost(5);
+    this.fetchPost(15);
   },
   components: {PostForm}
 }
