@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="onSubmit">
-		<input type="text" value="" v-model="title">
-		<button type="submit">create</button>
+		<button class="btn btn-dark" type="submit">create</button>
+    <input type="text" value="" v-model="title">
 	</form>
 </template>
 
@@ -36,9 +36,18 @@ export default {
 <style scoped>
 	form {
 		display: flex;
+    margin: 10px;
 	}
 	input {
-		width: 300px;
-		margin: 10px;
+    width: 300px;
+    font-size: 13px;
+    padding: 6px 0 4px 10px;
+    border: 1px solid #cecece;
+    background: #F6F6f6;
+    border-radius: 8px;
+    margin-left: 20px;
 	}
+  .btn {
+    margin-left: 20px;
+  }
 </style>

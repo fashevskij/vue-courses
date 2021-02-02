@@ -1,10 +1,11 @@
 <template>
-  <div id="app">
+  <div class="container" >
+  <div id="app" class="card">
    <h1>todo app</h1>
    <hr>
 
    <router-view />
-  </div>
+  </div></div>
 </template>
 
 

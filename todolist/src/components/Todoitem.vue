@@ -1,11 +1,11 @@
 <template>
-	<li>
-		<span :class="{done: todo.completed}">
-			<input type="checkbox" value="" @change="todo.completed = !todo.completed">
+	<li class="alert alert-dark">
+		<span  :class="{done: todo.completed}">
+			<input  type="checkbox" value="" @change="todo.completed = !todo.completed">
 			<strong>{{index + 1}}</strong>
 		{{todo.title | upper}}
 		</span>
-		<button class="btn" @click="remove">X</button>
+		<button class="btn btn-primary" @click="remove">X</button>
 	</li>
 </template>
 
@@ -55,14 +55,17 @@ padding: .5rem 2rem;
 margin-bottom: 1rem;
 }
 .btn{
-	background: red;
+
 	color: #fff;
-	border-radius: 50%;
+
 	font-weight: bold;
 }
 input {
 	margin-right: 2rem;
 }
+ span {
+   margin-top: 10px;
+ }
 .done{
 	text-decoration: line-through;
 }

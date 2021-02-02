@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h2>todo app</h2>
-    <router-link to="/"><button>Home</button></router-link>
+    <router-link to="/"><button class="btn btn-dark">Home</button></router-link>
     <AddTodo @add-todo="addTodo" />
     <label>
-      <select v-model="filter">
+      <select class="form-select" v-model="filter">
         <option value="all">all</option>
         <option value="completed">completed</option>
         <option value="not-completed">not-completed</option>
